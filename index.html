@@ -1,1 +1,1732 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust Travel — Світ Чекає На Тебе</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49'
+                        },
+                        sand: {
+                            50: '#fdfbf7',
+                            100: '#f7f2e8',
+                            200: '#eee3cf',
+                            500: '#d4b382',
+                            600: '#c29a63'
+                        },
+                        neutralDark: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafafa;
+            color: #1e293b;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.75) 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
+    <!-- Top Announcement Bar -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-4">
+                <span><i class="fa-solid fa-phone text-brand-500 mr-1.5"></i> +380 (44) 800-70-90</span>
+                <span class="hidden sm:inline"><i class="fa-solid fa-envelope text-brand-500 mr-1.5"></i> info@wanderlust-travel.ua</span>
+                <span class="hidden md:inline text-slate-400"><i class="fa-solid fa-location-dot text-brand-500 mr-1.5"></i> <span data-i18n="address">м. Київ, вул. Хрещатик, 15</span></span>
+            </div>
+            <div class="flex items-center gap-4 ml-auto">
+                <!-- Currency Toggle -->
+                <div class="flex items-center bg-slate-800 rounded-lg p-0.5 text-[11px] font-semibold border border-slate-700">
+                    <button id="btn-curr-uah" onclick="setCurrency('UAH')" class="px-2 py-0.5 rounded-md transition-colors bg-brand-600 text-white">UAH (₴)</button>
+                    <button id="btn-curr-usd" onclick="setCurrency('USD')" class="px-2 py-0.5 rounded-md transition-colors text-slate-400 hover:text-white">USD ($)</button>
+                </div>
+
+                <!-- Language Selector -->
+                <div class="relative">
+                    <select id="lang-select" onchange="changeLanguage(this.value)" class="bg-slate-800 text-slate-200 border border-slate-700 text-xs rounded-lg px-2 py-1 outline-none cursor-pointer hover:border-slate-500 transition-colors">
+                        <option value="uk">🇺🇦 Українська</option>
+                        <option value="en">🇬🇧 English</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="fr">🇫🇷 Français</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="pl">🇵🇱 Polski</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 glass-header border-b border-slate-200/80 shadow-sm transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-slate-900 text-brand-500 flex items-center justify-center text-xl shadow-md group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-extrabold tracking-tight text-slate-900 block leading-none">WANDERLUST</span>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-slate-500 block mt-1" data-i18n="tagline">Travel Agency</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-sm">
+                    <a href="#home" class="hover:text-brand-600 transition-colors py-1" data-i18n="nav_home">Головна</a>
+                    <a href="#destinations" class="hover:text-brand-600 transition-colors py-1" data-i18n="nav_destinations">Країни</a>
+                    <a href="#tours" class="hover:text-brand-600 transition-colors py-1" data-i18n="nav_tours">Гарячі Тури</a>
+                    <a href="#custom-tour" class="hover:text-brand-600 transition-colors py-1" data-i18n="nav_custom">Індивідуальний підбір</a>
+                    <a href="#about" class="hover:text-brand-600 transition-colors py-1" data-i18n="nav_about">Про нас</a>
+                    <a href="#contact" class="hover:text-brand-600 transition-colors py-1" data-i18n="nav_contact">Контакти</a>
+                </nav>
+
+                <!-- Action Controls -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button onclick="toggleFavoritesModal()" class="relative p-2.5 rounded-full text-slate-600 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Збережені тури">
+                        <i class="fa-regular fa-heart text-xl"></i>
+                        <span id="fav-count" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
+                    </button>
+                    <a href="#tours" class="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm transition-all hover:shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-brand-500 text-xs"></i>
+                        <span data-i18n="btn_book_now">Обрати тур</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-xl">
+            <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium" data-i18n="nav_home">Головна</a>
+            <a href="#destinations" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium" data-i18n="nav_destinations">Країни</a>
+            <a href="#tours" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium" data-i18n="nav_tours">Гарячі Тури</a>
+            <a href="#custom-tour" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium" data-i18n="nav_custom">Індивідуальний підбір</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium" data-i18n="nav_about">Про нас</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 font-medium" data-i18n="nav_contact">Контакти</a>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <button onclick="toggleFavoritesModal(); toggleMobileMenu();" class="flex items-center gap-2 text-slate-700 font-medium">
+                    <i class="fa-regular fa-heart text-rose-500"></i>
+                    <span data-i18n="saved_tours">Збережені тури</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-slate-900 py-24 lg:py-36 min-h-[620px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1920&q=80" 
+                 alt="Travel background" 
+                 class="w-full h-full object-cover opacity-40 transform scale-105 animate-pulse duration-[10000ms]"
+                 onerror="this.src='https://placehold.co/1920x1080/1e293b/ffffff?text=Wanderlust+Travel'">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center text-white">
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase mb-6 text-slate-200">
+                <i class="fa-solid fa-sparkles text-brand-500"></i>
+                <span data-i18n="hero_badge">Відкривай світ разом з нами</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight max-w-4xl mx-auto" data-i18n="hero_title">
+                Незабутні подорожі за найкращими цінами
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-normal leading-relaxed" data-i18n="hero_subtitle">
+                Персональний підбір ретельно перевірених готелів, ексклюзивні екскурсії та прозорі ціни у гривнях та доларах США.
+            </p>
+
+            <!-- Search & Filter Bar Bar -->
+            <div class="bg-white p-3 sm:p-4 rounded-2xl shadow-2xl text-slate-800 max-w-4xl mx-auto border border-slate-100">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left">
+                    <!-- Search Input -->
+                    <div class="p-2 bg-slate-50 rounded-xl border border-slate-200/80 hover:border-slate-300 transition-colors">
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1" data-i18n="filter_search">Пошук напрямку</label>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm"></i>
+                            <input type="text" id="search-input" onkeyup="filterTours()" placeholder="Країна чи місто..." class="w-full bg-transparent border-none p-0 text-sm font-semibold text-slate-800 focus:outline-none placeholder-slate-400">
+                        </div>
+                    </div>
+
+                    <!-- Category Selector -->
+                    <div class="p-2 bg-slate-50 rounded-xl border border-slate-200/80 hover:border-slate-300 transition-colors">
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1" data-i18n="filter_category">Тип відпочинку</label>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-umbrella-beach text-slate-400 text-sm"></i>
+                            <select id="category-filter" onchange="filterTours()" class="w-full bg-transparent border-none p-0 text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer">
+                                <option value="all" data-i18n="cat_all">Всі типи</option>
+                                <option value="beach" data-i18n="cat_beach">Пляжний релакс</option>
+                                <option value="sightseeing" data-i18n="cat_sightseeing">Екскурсійний</option>
+                                <option value="ski" data-i18n="cat_ski">Гірськолижний</option>
+                                <option value="exotic" data-i18n="cat_exotic">Екзотика & Острови</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Price Limit Filter -->
+                    <div class="p-2 bg-slate-50 rounded-xl border border-slate-200/80 hover:border-slate-300 transition-colors">
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1" data-i18n="filter_max_price">Макс. Бюджет</label>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-wallet text-slate-400 text-sm"></i>
+                            <select id="price-filter" onchange="filterTours()" class="w-full bg-transparent border-none p-0 text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer">
+                                <option value="all" data-i18n="price_any">Будь-який</option>
+                                <option value="1000" data-i18n="price_up_1000">до $1,000 (~41,500 ₴)</option>
+                                <option value="2000" data-i18n="price_up_2000">до $2,000 (~83,000 ₴)</option>
+                                <option value="3000" data-i18n="price_up_3000">до $3,000 (~124,500 ₴)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="flex items-center">
+                        <button onclick="filterTours()" class="w-full h-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-sliders"></i>
+                            <span data-i18n="btn_find">Знайти тур</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Ribbon -->
+    <section class="bg-white border-b border-slate-200/80 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-3">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-800 text-xl font-bold">
+                        <i class="fa-solid fa-shield-halved text-brand-600"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-base" data-i18n="feat_1_title">100% Страхування</h4>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="feat_1_desc">Повний фінансовий захист кожної поїздки</p>
+                </div>
+                <div class="p-3">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-800 text-xl font-bold">
+                        <i class="fa-solid fa-coins text-brand-600"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-base" data-i18n="feat_2_title">Подвійні ціни</h4>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="feat_2_desc">Зручний розрахунок в UAH (₴) та USD ($)</p>
+                </div>
+                <div class="p-3">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-800 text-xl font-bold">
+                        <i class="fa-solid fa-headset text-brand-600"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-base" data-i18n="feat_3_title">Підтримка 24/7</h4>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="feat_3_desc">Особистий менеджер на зв'язку цілодобово</p>
+                </div>
+                <div class="p-3">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-800 text-xl font-bold">
+                        <i class="fa-solid fa-award text-brand-600"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-base" data-i18n="feat_4_title">Кращі готелі</h4>
+                    <p class="text-xs text-slate-500 mt-1" data-i18n="feat_4_desc">Тільки перевірені та підтверджені варіанти</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Country Showcase -->
+    <section id="destinations" class="py-16 bg-slate-100/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-brand-600 font-bold uppercase tracking-wider text-xs" data-i18n="dest_subtitle">Популярні напрямки</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1" data-i18n="dest_title">Країни, які варто відвідати</h2>
+                <div class="w-16 h-1 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Country Cards Grid -->
+            <div id="country-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Dynamically Generated Cards -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Hot Tours Section -->
+    <section id="tours" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <span class="text-brand-600 font-bold uppercase tracking-wider text-xs" data-i18n="tours_subtitle">Актуальні Пропозиції</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1" data-i18n="tours_title">Гарячі та рекомендовані тури</h2>
+                </div>
+                <div class="flex flex-wrap items-center gap-2" id="filter-pills">
+                    <button onclick="setCategoryFilter('all', this)" class="category-pill active bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-semibold transition-all" data-i18n="cat_all">Всі тури</button>
+                    <button onclick="setCategoryFilter('beach', this)" class="category-pill bg-slate-100 text-slate-600 hover:bg-slate-200 px-4 py-2 rounded-xl text-xs font-semibold transition-all" data-i18n="cat_beach">Пляжні</button>
+                    <button onclick="setCategoryFilter('sightseeing', this)" class="category-pill bg-slate-100 text-slate-600 hover:bg-slate-200 px-4 py-2 rounded-xl text-xs font-semibold transition-all" data-i18n="cat_sightseeing">Екскурсійні</button>
+                    <button onclick="setCategoryFilter('ski', this)" class="category-pill bg-slate-100 text-slate-600 hover:bg-slate-200 px-4 py-2 rounded-xl text-xs font-semibold transition-all" data-i18n="cat_ski">Гірськолижні</button>
+                    <button onclick="setCategoryFilter('exotic', this)" class="category-pill bg-slate-100 text-slate-600 hover:bg-slate-200 px-4 py-2 rounded-xl text-xs font-semibold transition-all" data-i18n="cat_exotic">Екзотичні</button>
+                </div>
+            </div>
+
+            <!-- Tours Container Grid -->
+            <div id="tours-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tour cards dynamically rendered by JS -->
+            </div>
+
+            <!-- No Results Container -->
+            <div id="no-results" class="hidden text-center py-16 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                <i class="fa-solid fa-compass-drafting text-4xl text-slate-400 mb-3"></i>
+                <h3 class="text-lg font-bold text-slate-700" data-i18n="no_results_title">Турів за вашим запитом не знайдено</h3>
+                <p class="text-slate-500 text-sm mt-1" data-i18n="no_results_desc">Спробуйте змінити критерії пошуку або обрати іншу категорію</p>
+                <button onclick="resetFilters()" class="mt-4 bg-slate-900 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-slate-800 transition-colors" data-i18n="btn_reset">Скинути фільтри</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Tour Builder Form -->
+    <section id="custom-tour" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-brand-500 font-bold uppercase tracking-wider text-xs" data-i18n="custom_subtitle">Індивідуальний розрахунок</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-1" data-i18n="custom_title">Складіть свій ідеальний тур</h2>
+                <p class="text-slate-400 text-sm mt-2" data-i18n="custom_desc">Вкажіть ваші побажання та миттєво дізнайтеся орієнтовну вартість поїздки</p>
+            </div>
+
+            <div class="bg-slate-800/80 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-slate-700/80 shadow-2xl">
+                <form id="calculator-form" onsubmit="handleCustomTourSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Country Select -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2" data-i18n="calc_country">Країна призначення</label>
+                            <select id="calc-country" onchange="calculateEstimatedPrice()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:border-brand-500 outline-none">
+                                <option value="italy">Італія (Європа)</option>
+                                <option value="egypt">Єгипет (Червоне море)</option>
+                                <option value="greece">Греція (Острови)</option>
+                                <option value="japan">Японія (Азія)</option>
+                                <option value="bali">Балі, Індонезія</option>
+                                <option value="uae">ОАЕ (Дубай)</option>
+                                <option value="france">Франція</option>
+                            </select>
+                        </div>
+
+                        <!-- Nights Count -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2" data-i18n="calc_nights">Кількість ночей</label>
+                            <input type="number" id="calc-nights" min="3" max="30" value="7" onchange="calculateEstimatedPrice()" onkeyup="calculateEstimatedPrice()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:border-brand-500 outline-none">
+                        </div>
+
+                        <!-- Persons Count -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2" data-i18n="calc_guests">Кількість гостей</label>
+                            <select id="calc-guests" onchange="calculateEstimatedPrice()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:border-brand-500 outline-none">
+                                <option value="1">1 дорослий</option>
+                                <option value="2" selected>2 дорослих</option>
+                                <option value="3">2 дорослих + 1 дитина</option>
+                                <option value="4">2 дорослих + 2 дитини</option>
+                            </select>
+                        </div>
+
+                        <!-- Hotel Stars -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2" data-i18n="calc_hotel">Категорія готелю</label>
+                            <select id="calc-stars" onchange="calculateEstimatedPrice()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:border-brand-500 outline-none">
+                                <option value="3">3★ Комфорт</option>
+                                <option value="4" selected>4★ Преміум</option>
+                                <option value="5">5★ Люкс / Resort</option>
+                            </select>
+                        </div>
+
+                        <!-- Food Option -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2" data-i18n="calc_board">Харчування</label>
+                            <select id="calc-board" onchange="calculateEstimatedPrice()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:border-brand-500 outline-none">
+                                <option value="bb">Сніданки (BB)</option>
+                                <option value="hb">Сніданок + Вечеря (HB)</option>
+                                <option value="ai" selected>Все включено (All Inclusive)</option>
+                            </select>
+                        </div>
+
+                        <!-- Transfer Option -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-2" data-i18n="calc_transfer">Трансфер та авіа</label>
+                            <select id="calc-transfer" onchange="calculateEstimatedPrice()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:border-brand-500 outline-none">
+                                <option value="yes" selected>Включено (Авіа + Трансфер)</option>
+                                <option value="no">Тільки готель</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Calculated Price Preview Box -->
+                    <div class="mt-8 pt-6 border-t border-slate-700/80 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-slate-400 block" data-i18n="calc_estimated">Орієнтовна вартість:</span>
+                            <div class="flex items-baseline gap-3 mt-1">
+                                <span id="calc-price-usd" class="text-3xl font-extrabold text-white">$1,450</span>
+                                <span id="calc-price-uah" class="text-xl font-bold text-brand-500">(~60,175 ₴)</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full md:w-auto bg-brand-600 hover:bg-brand-500 text-white font-bold px-8 py-4 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 text-base">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span data-i18n="calc_btn_send">Надіслати запит менеджеру</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Trust Section -->
+    <section id="about" class="py-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-brand-600 font-bold uppercase tracking-wider text-xs" data-i18n="about_subtitle">Про Wanderlust</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-6 leading-tight" data-i18n="about_title">Надійний партнер вашого ідеального відпочинку</h2>
+                    <p class="text-slate-600 leading-relaxed mb-6" data-i18n="about_text_1">
+                        Ми прагнемо зробити кожну вашу поїздку максимально комфортною, безпечною та насиченою яскравими емоціями. Наша агенція працевлаштовує найкращих експертів із туризму, які особисто відвідали понад 50 країн та інспектували понад 800 готелів.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 my-6">
+                        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-3xl font-extrabold text-slate-900 block">12+</span>
+                            <span class="text-xs text-slate-500 font-semibold uppercase" data-i18n="stat_years">Років досвіду</span>
+                        </div>
+                        <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-3xl font-extrabold text-slate-900 block">15,000+</span>
+                            <span class="text-xs text-slate-500 font-semibold uppercase" data-i18n="stat_tourists">Задоволених туристів</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" 
+                             alt="Luxury Resort" 
+                             class="w-full h-auto object-cover"
+                             onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=Wanderlust+Resort'">
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-slate-100 hidden sm:flex items-center gap-4 max-w-xs">
+                        <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 font-bold text-xl">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div>
+                            <span class="font-extrabold text-slate-900 block text-lg">4.9 / 5.0</span>
+                            <span class="text-xs text-slate-500" data-i18n="rating_label">Середня оцінка наших клієнтів</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                <!-- Info Column -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div>
+                        <span class="text-brand-600 font-bold uppercase tracking-wider text-xs" data-i18n="contact_subtitle">Зв'язок з нами</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1" data-i18n="contact_title">Готові до нових вражень?</h2>
+                        <p class="text-slate-500 text-sm mt-2" data-i18n="contact_desc">Завітайте до нашого офісу або залишіть заявку для безкоштовної консультації.</p>
+                    </div>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center shrink-0 font-bold">
+                                <i class="fa-solid fa-location-dot text-brand-600"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs uppercase font-bold text-slate-400" data-i18n="contact_addr_label">Адреса офісу</h5>
+                                <p class="text-sm font-semibold text-slate-800" data-i18n="address">м. Київ, вул. Хрещатик, 15</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center shrink-0 font-bold">
+                                <i class="fa-solid fa-phone text-brand-600"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs uppercase font-bold text-slate-400" data-i18n="contact_phone_label">Телефони</h5>
+                                <p class="text-sm font-semibold text-slate-800">+380 (44) 800-70-90</p>
+                                <p class="text-sm font-semibold text-slate-800">+380 (67) 123-45-67</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center shrink-0 font-bold">
+                                <i class="fa-solid fa-envelope text-brand-600"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs uppercase font-bold text-slate-400" data-i18n="contact_email_label">Email</h5>
+                                <p class="text-sm font-semibold text-slate-800">info@wanderlust-travel.ua</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-2 bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200">
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1" data-i18n="form_name">Ім'я</label>
+                                <input type="text" required placeholder="Ваше ім'я" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:border-slate-800 outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1" data-i18n="form_phone">Телефон</label>
+                                <input type="tel" required placeholder="+380 (__) ___-__-__" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:border-slate-800 outline-none transition-colors">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 mb-1" data-i18n="form_email">Email адреса</label>
+                            <input type="email" required placeholder="example@mail.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:border-slate-800 outline-none transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 mb-1" data-i18n="form_message">Повідомлення чи запитання</label>
+                            <textarea rows="4" placeholder="Напишіть ваші побажання щодо відпочинку..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:border-slate-800 outline-none transition-colors resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-brand-500"></i>
+                            <span data-i18n="form_btn_send">Надіслати повідомлення</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-white">
+                        <i class="fa-solid fa-compass text-brand-500 text-2xl"></i>
+                        <span class="text-xl font-extrabold tracking-tight">WANDERLUST</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed" data-i18n="footer_desc">
+                        Ваш надійний туристичний оператор. Створюємо подорожі вашої мрії з 2012 року.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold mb-3 text-xs uppercase tracking-wider" data-i18n="footer_col_1">Навігація</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#home" class="hover:text-white transition-colors" data-i18n="nav_home">Головна</a></li>
+                        <li><a href="#destinations" class="hover:text-white transition-colors" data-i18n="nav_destinations">Країни</a></li>
+                        <li><a href="#tours" class="hover:text-white transition-colors" data-i18n="nav_tours">Гарячі Тури</a></li>
+                        <li><a href="#custom-tour" class="hover:text-white transition-colors" data-i18n="nav_custom">Індивідуальний підбір</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold mb-3 text-xs uppercase tracking-wider" data-i18n="footer_col_2">Країни</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#tours" onclick="filterByCountry('Італія')" class="hover:text-white transition-colors">Італія</a></li>
+                        <li><a href="#tours" onclick="filterByCountry('Єгипет')" class="hover:text-white transition-colors">Єгипет</a></li>
+                        <li><a href="#tours" onclick="filterByCountry('Греція')" class="hover:text-white transition-colors">Греція</a></li>
+                        <li><a href="#tours" onclick="filterByCountry('Японія')" class="hover:text-white transition-colors">Японія</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold mb-3 text-xs uppercase tracking-wider" data-i18n="footer_col_3">Соціальні мережі</h5>
+                    <div class="flex gap-3 text-lg text-slate-300">
+                        <a href="#" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-900 text-center text-xs text-slate-500">
+                <p>© 2026 Wanderlust Travel Agency. <span data-i18n="all_rights_reserved">Усі права захищено.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Tour Details Modal -->
+    <div id="tour-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl relative">
+            <button onclick="closeTourModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Dynamically filled by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Favorites Modal -->
+    <div id="fav-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                <h3 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-heart text-rose-500"></i>
+                    <span data-i18n="saved_tours">Збережені тури</span>
+                </h3>
+                <button onclick="toggleFavoritesModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div id="fav-list" class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar my-4">
+                <!-- Dynamically filled -->
+            </div>
+            <button onclick="toggleFavoritesModal()" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold text-xs" data-i18n="btn_close">Закрити</button>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 text-sm font-semibold border border-slate-700">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg" id="toast-icon"></i>
+        <span id="toast-msg">Повідомлення</span>
+    </div>
+
+    <script>
+        // Exchange Rate: 1 USD = 41.50 UAH
+        const USD_TO_UAH = 41.5;
+        let currentCurrency = 'UAH'; // 'UAH' or 'USD'
+        let currentLang = 'uk';
+        let savedFavorites = [];
+
+        // Sample Countries Dataset with Images
+        const countriesData = [
+            {
+                name: { uk: "Італія", en: "Italy", de: "Italien", fr: "Italie", es: "Italia", pl: "Włochy" },
+                toursCount: 12,
+                image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=80",
+                badge: "Рим, Амальфі, Венеція"
+            },
+            {
+                name: { uk: "Єгипет", en: "Egypt", de: "Ägypten", fr: "Égypte", es: "Egipto", pl: "Egipt" },
+                toursCount: 18,
+                image: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=600&q=80",
+                badge: "Шарм-ель-Шейх, Хургада"
+            },
+            {
+                name: { uk: "Греція", en: "Greece", de: "Griechenland", fr: "Grèce", es: "Grecia", pl: "Grecja" },
+                toursCount: 9,
+                image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80",
+                badge: "Санторіні, Афіни, Крит"
+            },
+            {
+                name: { uk: "Японія", en: "Japan", de: "Japan", fr: "Japon", es: "Japón", pl: "Japonia" },
+                toursCount: 7,
+                image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80",
+                badge: "Токіо, Кіото, Фудзі"
+            },
+            {
+                name: { uk: "Балі (Індонезія)", en: "Bali (Indonesia)", de: "Bali (Indonesien)", fr: "Bali (Indonésie)", es: "Bali (Indonesia)", pl: "Bali (Indonezja)" },
+                toursCount: 14,
+                image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80",
+                badge: "Убуд, Нуса Дуа"
+            },
+            {
+                name: { uk: "ОАЕ (Дубай)", en: "UAE (Dubai)", de: "VAE (Dubai)", fr: "ÉAU (Dubaï)", es: "EAU (Dubái)", pl: "ZAE (Dubaj)" },
+                toursCount: 15,
+                image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80",
+                badge: "Дубай, Абу-Дабі"
+            },
+            {
+                name: { uk: "Франція", en: "France", de: "Frankreich", fr: "France", es: "Francia", pl: "Francja" },
+                toursCount: 10,
+                image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80",
+                badge: "Париж, Лазурний берег"
+            },
+            {
+                name: { uk: "Швейцарія", en: "Switzerland", de: "Schweiz", fr: "Suisse", es: "Suiza", pl: "Szwajcaria" },
+                toursCount: 6,
+                image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80",
+                badge: "Церматт, Альпи"
+            }
+        ];
+
+        const toursData = [
+            {
+                id: 1,
+                title: {
+                    uk: "Романтика Амальфітанського узбережжя",
+                    en: "Romance of the Amalfi Coast",
+                    de: "Romantik der Amalfiküste",
+                    fr: "Romance de la Côte Amalfitaine",
+                    es: "Romance de la Costa Amalfitana",
+                    pl: "Romantyczny Wybrzeże Amalfi"
+                },
+                country: "Італія",
+                category: "sightseeing",
+                priceUSD: 1250, // Base price in USD
+                durationNights: 7,
+                stars: 4,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80",
+                description: {
+                    uk: "Захоплюючі види на Середземне море, затишні вілли Позітано, дегустації лімончелло та приватні екскурсії.",
+                    en: "Breathtaking Mediterranean views, cozy Positano villas, limoncello tastings and private guided tours.",
+                    de: "Atemberaubende Aussichten auf das Mittelmeer, gemütliche Villen in Positano und geführte Touren.",
+                    fr: "Vues imprenables sur la Méditerranée, villas intimes à Positano et visites guidées privées.",
+                    es: "Vistas impresionantes del Mediterráneo, acogedoras villas en Positano y visitas guiadas.",
+                    pl: "Niesamowite widoki na Morze Śródziemne, przytulne wille w Positano i wycieczki z przewodnikiem."
+                },
+                included: ["Fly & Hotel 4★", "Breakfasts", "Excursions", "Insurance"]
+            },
+            {
+                id: 2,
+                title: {
+                    uk: "Червоне море & Райський Релакс",
+                    en: "Red Sea & Paradise Relax",
+                    de: "Rotes Meer & Paradies-Relax",
+                    fr: "Mer Rouge & Relax au Paradis",
+                    es: "Mar Rojo y Relajación en el Paraíso",
+                    pl: "Morze Czerwone i Rajski Relaks"
+                },
+                country: "Єгипет",
+                category: "beach",
+                priceUSD: 680,
+                durationNights: 8,
+                stars: 5,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+                description: {
+                    uk: "5-зірковий курорт All Inclusive на першій лінії у Шарм-ель-Шейху з кораловим рифом та аквапарком.",
+                    en: "5-star All-Inclusive beach resort in Sharm El Sheikh with private coral reef and water park.",
+                    de: "5-Sterne All-Inclusive Resort in Sharm El Sheikh mit eigenem Korallenriff.",
+                    fr: "Resort 5 étoiles Tout Compris à Charm el-Cheikh avec récif corallien privé.",
+                    es: "Resort de 5 estrellas Todo Incluido en Sharm El Sheikh con arrecife de coral privado.",
+                    pl: "5-gwiazdkowy resort All Inclusive w Szarm el-Szejk z prywatną rafą koralową."
+                },
+                included: ["Flight included", "All Inclusive 5★", "Transfer", "Snorkeling gear"]
+            },
+            {
+                id: 3,
+                title: {
+                    uk: "Сонячний Санторіні та Грецькі Острови",
+                    en: "Sunny Santorini & Greek Islands",
+                    de: "Sonniges Santorin & Griechische Inseln",
+                    fr: "Santorin Ensoleillé & Îles Grecques",
+                    es: "Santorini Soleado e Islas Griegas",
+                    pl: "Słoneczne Santorini i Greckie Wyspy"
+                },
+                country: "Греція",
+                category: "beach",
+                priceUSD: 1400,
+                durationNights: 7,
+                stars: 5,
+                rating: 5.0,
+                image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800&q=80",
+                description: {
+                    uk: "Білосніжні готелі з басейнами infinity, захід сонця в Іа та круїз на приватній яхті.",
+                    en: "Iconic white-and-blue cliffside hotels, infinity pools, Oia sunsets and private yacht cruise.",
+                    de: "Ikonische weiße Hotels mit Infinity-Pools, Sonnenuntergänge in Oia und Yachttour.",
+                    fr: "Hôtels emblématiques sur les falaises, piscines à débordement et coucher de soleil à Oia.",
+                    es: "Hoteles icónicos en los acantilados, piscinas de borde infinito y puestas de sol en Oia.",
+                    pl: "Luksusowe hotele na klifie, baseny infinity i zachody słońca w Oia."
+                },
+                included: ["Boutique Hotel 5★", "Breakfast", "Yacht Tour", "VIP Transfer"]
+            },
+            {
+                id: 4,
+                title: {
+                    uk: "Цвітіння Сакури та Фудзіяма",
+                    en: "Cherry Blossom & Mount Fuji",
+                    de: "Kirschblüte & Berg Fuji",
+                    fr: "Fleurs de Cerisier & Mont Fuji",
+                    es: "Cerezos en Flor y Monte Fuji",
+                    pl: "Kwitnąca Wiśnia i Góra Fuji"
+                },
+                country: "Японія",
+                category: "sightseeing",
+                priceUSD: 2850,
+                durationNights: 10,
+                stars: 4,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80",
+                description: {
+                    uk: "Захоплююча подорож через Токіо, Кіото та Хаконе. Включає швидкісний поїзд Shinkansen та онсени.",
+                    en: "Immersive cultural tour through Tokyo, Kyoto and Hakone with Bullet Train passes and hot springs.",
+                    de: "Kulturtour durch Tokio, Kyōto und Hakone mit Shinkansen-Pass und Onsen-Besuchen.",
+                    fr: "Voyage culturel à Tokyo, Kyoto et Hakone avec passe-train Shinkansen et onsens.",
+                    es: "Viaje cultural por Tokio, Kioto y Hakone con pase de tren bala y termas tradicionales.",
+                    pl: "Niezapomniana podróż przez Tokio, Kioto i Hakone z przejazdem Shinkansenem."
+                },
+                included: ["Flight", "JR Rail Pass", "Hotels 4★", "English Guide"]
+            },
+            {
+                id: 5,
+                title: {
+                    uk: "Тропічний Рай Убуду та Нуса Дуа",
+                    en: "Tropical Paradise Ubud & Nusa Dua",
+                    de: "Tropisches Paradies Ubud & Nusa Dua",
+                    fr: "Paradis Tropical Ubud & Nusa Dua",
+                    es: "Paraíso Tropical Ubud y Nusa Dua",
+                    pl: "Tropikalny Raj Ubud i Nusa Dua"
+                },
+                country: "Балі (Індонезія)",
+                category: "exotic",
+                priceUSD: 1650,
+                durationNights: 11,
+                stars: 5,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80",
+                description: {
+                    uk: "Поєднання тропічних джунглів, рисових терасс, СПА-процедур та відпочинку на океанському узбережжі.",
+                    en: "Combination of jungle luxury, rice terrace views, Balinese spa packages and beach resorts.",
+                    de: "Kombination aus Dschungel-Luxus, Reisterrassen, Spa und Strand-Resorts.",
+                    fr: "Mélange de luxe dans la jungle, terrasses de riz, spa balinais et plage paradisiaque.",
+                    es: "Combinación de lujo en la selva, terrazas de arroz, spa balinés y resort frente al mar.",
+                    pl: "Połączenie tropikalnej dżungli, tarasów ryżowych i relaksu nad oceanem."
+                },
+                included: ["Villas 5★", "Breakfast", "Spa Credit", "Airport Transfer"]
+            },
+            {
+                id: 6,
+                title: {
+                    uk: "Швейцарські Альпи & Церматт Ski Resort",
+                    en: "Swiss Alps & Zermatt Ski Resort",
+                    de: "Schweizer Alpen & Zermatt Ski Resort",
+                    fr: "Alpes Suisses & Station de Ski Zermatt",
+                    es: "Alpes Suizos y Estación de Esquí Zermatt",
+                    pl: "Szwajcarskie Alpy i Zermatt"
+                },
+                country: "Швейцарія",
+                category: "ski",
+                priceUSD: 2200,
+                durationNights: 7,
+                stars: 5,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80",
+                description: {
+                    uk: "Катання біля підніжжя Маттерхорна, розкішні спа-готелі з підігрівом басейнів та затишні шале.",
+                    en: "Premium skiing at Matterhorn foot, luxury chalets with heated outdoor pools and alpine dining.",
+                    de: "Skifahren am Matterhorn, Luxus-Chalets mit beheizten Außenpools.",
+                    fr: "Ski au pied du Cervin, chalets de luxe avec piscines chauffées.",
+                    es: "Esquí a los pies del Matterhorn, chalets de lujo con piscinas climatizadas.",
+                    pl: "Jazda na nartach u stóp Matterhornu, luksusowe hotele ze SPA."
+                },
+                included: ["Ski Pass 6 Days", "Chalet 5★", "Half Board", "Helicopter Transfer Option"]
+            }
+        ];
+
+        const translations = {
+            uk: {
+                address: "м. Київ, вул. Хрещатик, 15",
+                tagline: "Туристична агенція",
+                nav_home: "Головна",
+                nav_destinations: "Країни",
+                nav_tours: "Гарячі Тури",
+                nav_custom: "Індивідуальний підбір",
+                nav_about: "Про нас",
+                nav_contact: "Контакти",
+                btn_book_now: "Обрати тур",
+                saved_tours: "Збережені тури",
+                hero_badge: "Відкривай світ разом з нами",
+                hero_title: "Незабутні подорожі за найкращими цінами",
+                hero_subtitle: "Персональний підбір ретельно перевірених готелів, ексклюзивні екскурсії та прозорі ціни у гривнях та доларах США.",
+                filter_search: "Пошук напрямку",
+                filter_category: "Тип відпочинку",
+                filter_max_price: "Макс. Бюджет",
+                cat_all: "Всі типи",
+                cat_beach: "Пляжний релакс",
+                cat_sightseeing: "Екскурсійний",
+                cat_ski: "Гірськолижний",
+                cat_exotic: "Екзотика & Острови",
+                price_any: "Будь-який",
+                price_up_1000: "до $1,000 (~41,500 ₴)",
+                price_up_2000: "до $2,000 (~83,000 ₴)",
+                price_up_3000: "до $3,000 (~124,500 ₴)",
+                btn_find: "Знайти тур",
+                feat_1_title: "100% Страхування",
+                feat_1_desc: "Повний фінансовий захист кожної поїздки",
+                feat_2_title: "Подвійні ціни",
+                feat_2_desc: "Зручний розрахунок в UAH (₴) та USD ($)",
+                feat_3_title: "Підтримка 24/7",
+                feat_3_desc: "Особистий менеджер на зв'язку цілодобово",
+                feat_4_title: "Кращі готелі",
+                feat_4_desc: "Тільки перевірені та підтверджені варіанти",
+                dest_subtitle: "Популярні напрямки",
+                dest_title: "Країни, які варто відвідати",
+                tours_subtitle: "Актуальні Пропозиції",
+                tours_title: "Гарячі та рекомендовані тури",
+                custom_subtitle: "Індивідуальний розрахунок",
+                custom_title: "Складіть свій ідеальний тур",
+                custom_desc: "Вкажіть ваші побажання та миттєво дізнайтеся орієнтовну вартість поїздки",
+                calc_country: "Країна призначення",
+                calc_nights: "Кількість ночей",
+                calc_guests: "Кількість гостей",
+                calc_hotel: "Категорія готелю",
+                calc_board: "Харчування",
+                calc_transfer: "Трансфер та авіа",
+                calc_estimated: "Орієнтовна вартість:",
+                calc_btn_send: "Надіслати запит менеджеру",
+                about_subtitle: "Про Wanderlust",
+                about_title: "Надійний партнер вашого ідеального відпочинку",
+                about_text_1: "Ми прагнемо зробити кожну вашу поїздку максимально комфортною, безпечною та насиченою яскравими емоціями. Наша агенція працевлаштовує найкращих експертів із туризму.",
+                stat_years: "Років досвіду",
+                stat_tourists: "Задоволених туристів",
+                rating_label: "Середня оцінка наших клієнтів",
+                contact_subtitle: "Зв'язок з нами",
+                contact_title: "Готові до нових вражень?",
+                contact_desc: "Завітайте до нашого офісу або залишіть заявку для безкоштовної консультації.",
+                contact_addr_label: "Адреса офісу",
+                contact_phone_label: "Телефони",
+                contact_email_label: "Email",
+                form_name: "Ім'я",
+                form_phone: "Телефон",
+                form_email: "Email адреса",
+                form_message: "Повідомлення чи запитання",
+                form_btn_send: "Надіслати повідомлення",
+                footer_desc: "Ваш надійний туристичний оператор. Створюємо подорожі вашої мрії з 2012 року.",
+                footer_col_1: "Навігація",
+                footer_col_2: "Країни",
+                footer_col_3: "Соціальні мережі",
+                all_rights_reserved: "Усі права захищено.",
+                btn_details: "Детальніше",
+                btn_close: "Закрити",
+                btn_reset: "Скинути фільтри",
+                no_results_title: "Турів за вашим запитом не знайдено",
+                no_results_desc: "Спробуйте змінити критерії пошуку або обрати іншу категорію",
+                nights_label: "ночей",
+                per_person: "за 1 особу"
+            },
+            en: {
+                address: "Kyiv, Khreshchatyk str., 15",
+                tagline: "Travel Agency",
+                nav_home: "Home",
+                nav_destinations: "Countries",
+                nav_tours: "Hot Tours",
+                nav_custom: "Custom Tour",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                btn_book_now: "Explore Tours",
+                saved_tours: "Saved Tours",
+                hero_badge: "Discover the world with us",
+                hero_title: "Unforgettable Journeys at Best Prices",
+                hero_subtitle: "Handpicked top-rated hotels, exclusive excursions, transparent dual pricing in UAH and USD.",
+                filter_search: "Search Destination",
+                filter_category: "Tour Type",
+                filter_max_price: "Max Budget",
+                cat_all: "All Types",
+                cat_beach: "Beach Relax",
+                cat_sightseeing: "Sightseeing",
+                cat_ski: "Ski Resort",
+                cat_exotic: "Exotic & Islands",
+                price_any: "Any Budget",
+                price_up_1000: "Up to $1,000",
+                price_up_2000: "Up to $2,000",
+                price_up_3000: "Up to $3,000",
+                btn_find: "Search Tours",
+                feat_1_title: "100% Insurance",
+                feat_1_desc: "Full financial protection on every trip",
+                feat_2_title: "Dual Currency",
+                feat_2_desc: "Easy display in UAH (₴) and USD ($)",
+                feat_3_title: "24/7 Support",
+                feat_3_desc: "Dedicated travel expert always available",
+                feat_4_title: "Best Hotels",
+                feat_4_desc: "Only verified and highly rated resorts",
+                dest_subtitle: "Popular Destinations",
+                dest_title: "Top Countries to Visit",
+                tours_subtitle: "Current Offers",
+                tours_title: "Featured & Hot Travel Deals",
+                custom_subtitle: "Custom Estimation",
+                custom_title: "Build Your Perfect Trip",
+                custom_desc: "Choose parameters and calculate estimated tour price instantly",
+                calc_country: "Destination",
+                calc_nights: "Number of Nights",
+                calc_guests: "Guests Count",
+                calc_hotel: "Hotel Category",
+                calc_board: "Meal Board",
+                calc_transfer: "Flight & Transfer",
+                calc_estimated: "Estimated Total:",
+                calc_btn_send: "Send Request to Manager",
+                about_subtitle: "About Wanderlust",
+                about_title: "Your Trusted Partner for Perfect Vacations",
+                about_text_1: "We strive to make every journey comfortable, safe, and memorable. Our agency employs top travel experts who visited 50+ countries.",
+                stat_years: "Years Experience",
+                stat_tourists: "Happy Travelers",
+                rating_label: "Average customer rating",
+                contact_subtitle: "Get in Touch",
+                contact_title: "Ready for New Adventures?",
+                contact_desc: "Visit our office or send a request for a free consultation.",
+                contact_addr_label: "Office Address",
+                contact_phone_label: "Phones",
+                contact_email_label: "Email",
+                form_name: "Name",
+                form_phone: "Phone Number",
+                form_email: "Email Address",
+                form_message: "Message / Preferences",
+                form_btn_send: "Send Message",
+                footer_desc: "Your reliable tour operator. Creating dream trips since 2012.",
+                footer_col_1: "Navigation",
+                footer_col_2: "Destinations",
+                footer_col_3: "Social Media",
+                all_rights_reserved: "All rights reserved.",
+                btn_details: "View Details",
+                btn_close: "Close",
+                btn_reset: "Reset Filters",
+                no_results_title: "No tours found matching your search",
+                no_results_desc: "Try changing filter parameters or choose another category",
+                nights_label: "nights",
+                per_person: "per person"
+            },
+            de: {
+                address: "Kiew, Chreschtschatyk Str. 15",
+                tagline: "Reiseagentur",
+                nav_home: "Startseite",
+                nav_destinations: "Länder",
+                nav_tours: "Angebote",
+                nav_custom: "Individuell",
+                nav_about: "Über uns",
+                nav_contact: "Kontakt",
+                btn_book_now: "Buchen",
+                saved_tours: "Gespeicherte Reisen",
+                hero_badge: "Entdecke die Welt mit uns",
+                hero_title: "Unvergessliche Reisen zum besten Preis",
+                hero_subtitle: "Geprüfte Hotels, exklusive Ausflüge und transparente Preise in UAH & USD.",
+                filter_search: "Zielort suchen",
+                filter_category: "Reiseart",
+                filter_max_price: "Max. Budget",
+                cat_all: "Alle Typen",
+                cat_beach: "Strandurlaub",
+                cat_sightseeing: "Kultur & Städte",
+                cat_ski: "Ski & Berge",
+                cat_exotic: "Exotik & Inseln",
+                price_any: "Beliebig",
+                price_up_1000: "bis $1.000",
+                price_up_2000: "bis $2.000",
+                price_up_3000: "bis $3.000",
+                btn_find: "Suchen",
+                feat_1_title: "100% Versicherung",
+                feat_1_desc: "Voller Schutz für jede Reise",
+                feat_2_title: "Zwei Währungen",
+                feat_2_desc: "Preise in UAH (₴) und USD ($)",
+                feat_3_title: "24/7 Service",
+                feat_3_desc: "Immer für Sie erreichbar",
+                feat_4_title: "Top Hotels",
+                feat_4_desc: "Nur beste Bewertungen",
+                dest_subtitle: "Beliebte Ziele",
+                dest_title: "Länder entdecken",
+                tours_subtitle: "Top Angebote",
+                tours_title: "Empfohlene Reisen",
+                custom_subtitle: "Kalkulation",
+                custom_title: "Ihre Wunschreise planen",
+                custom_desc: "Wählen Sie Optionen und berechnen Sie den Preis",
+                calc_country: "Reiseziel",
+                calc_nights: "Anzahl Nächte",
+                calc_guests: "Gäste",
+                calc_hotel: "Hotelkategorie",
+                calc_board: "Verpflegung",
+                calc_transfer: "Flug & Transfer",
+                calc_estimated: "Geschätzter Preis:",
+                calc_btn_send: "Anfrage senden",
+                about_subtitle: "Über Wanderlust",
+                about_title: "Ihr verlässlicher Partner für Urlaub",
+                about_text_1: "Wir sorgen für unvergessliche und sichere Reiseerlebnisse weltweit.",
+                stat_years: "Jahre Erfahrung",
+                stat_tourists: "Zufriedene Kunden",
+                rating_label: "Durchschnittliche Bewertung",
+                contact_subtitle: "Kontakt",
+                contact_title: "Bereit für das Abenteuer?",
+                contact_desc: "Besuchen Sie unser Büro oder kontaktieren Sie uns.",
+                contact_addr_label: "Adresse",
+                contact_phone_label: "Telefon",
+                contact_email_label: "E-Mail",
+                form_name: "Name",
+                form_phone: "Telefonnummer",
+                form_email: "E-Mail-Adresse",
+                form_message: "Nachricht",
+                form_btn_send: "Nachricht senden",
+                footer_desc: "Ihr Reiseveranstalter seit 2012.",
+                footer_col_1: "Navigation",
+                footer_col_2: "Länder",
+                footer_col_3: "Social Media",
+                all_rights_reserved: "Alle Rechte vorbehalten.",
+                btn_details: "Details ansehen",
+                btn_close: "Schließen",
+                btn_reset: "Zurücksetzen",
+                no_results_title: "Keine Angebote gefunden",
+                no_results_desc: "Bitte ändern Sie die Suchkriterien",
+                nights_label: "Nächte",
+                per_person: "pro Person"
+            },
+            fr: {
+                address: "Kyiv, rue Khreshchatyk, 15",
+                tagline: "Agence de Voyage",
+                nav_home: "Accueil",
+                nav_destinations: "Pays",
+                nav_tours: "Circuits",
+                nav_custom: "Sur Mesure",
+                nav_about: "À Propos",
+                nav_contact: "Contact",
+                btn_book_now: "Réserver",
+                saved_tours: "Mes Favoris",
+                hero_badge: "Découvrez le monde avec nous",
+                hero_title: "Voyages inoubliables au meilleur prix",
+                hero_subtitle: "Hôtels sélectionnés, prix transparents en UAH et USD.",
+                filter_search: "Chercher destination",
+                filter_category: "Type de séjour",
+                filter_max_price: "Budget Max",
+                cat_all: "Tous types",
+                cat_beach: "Plage & Détente",
+                cat_sightseeing: "Culture & Visites",
+                cat_ski: "Ski & Montagne",
+                cat_exotic: "Éxotique & Îles",
+                price_any: "Tous budgets",
+                price_up_1000: "jusqu'à $1 000",
+                price_up_2000: "jusqu'à $2 000",
+                price_up_3000: "jusqu'à $3 000",
+                btn_find: "Rechercher",
+                feat_1_title: "100% Assurance",
+                feat_1_desc: "Protection financière garantie",
+                feat_2_title: "Double Prix",
+                feat_2_desc: "Affichage en UAH (₴) et USD ($)",
+                feat_3_title: "Support 24/7",
+                feat_3_desc: "Conseillers dédiés à votre écoute",
+                feat_4_title: "Meilleurs Hôtels",
+                feat_4_desc: "Établissements certifiés",
+                dest_subtitle: "Destinations Populaires",
+                dest_title: "Pays à Visiter",
+                tours_subtitle: "Offres Spéciales",
+                tours_title: "Meilleures Offres de Voyage",
+                custom_subtitle: "Sur Mesure",
+                custom_title: "Composez votre voyage",
+                custom_desc: "Calculez le coût estimé de votre séjour",
+                calc_country: "Destination",
+                calc_nights: "Nombre de nuits",
+                calc_guests: "Voyageurs",
+                calc_hotel: "Catégorie d'hôtel",
+                calc_board: "Restauration",
+                calc_transfer: "Vol & Transfert",
+                calc_estimated: "Prix Estimé:",
+                calc_btn_send: "Envoyer ma demande",
+                about_subtitle: "À Propos",
+                about_title: "Votre partenaire idéal pour les vacances",
+                about_text_1: "Nous organisons des séjours d'exception partout dans le monde.",
+                stat_years: "Années d'expérience",
+                stat_tourists: "Clients satisfaits",
+                rating_label: "Note moyenne de nos clients",
+                contact_subtitle: "Contactez-nous",
+                contact_title: "Prêt pour le départ ?",
+                contact_desc: "Passez à notre agence ou envoyez-nous un message.",
+                contact_addr_label: "Adresse",
+                contact_phone_label: "Téléphones",
+                contact_email_label: "E-mail",
+                form_name: "Nom",
+                form_phone: "Téléphone",
+                form_email: "E-mail",
+                form_message: "Message",
+                form_btn_send: "Envoyer le message",
+                footer_desc: "Votre agence de voyages de confiance depuis 2012.",
+                footer_col_1: "Navigation",
+                footer_col_2: "Destinations",
+                footer_col_3: "Réseaux Sociaux",
+                all_rights_reserved: "Tous droits réservés.",
+                btn_details: "Voir Détails",
+                btn_close: "Fermer",
+                btn_reset: "Réinitialiser",
+                no_results_title: "Aucun séjour trouvé",
+                no_results_desc: "Veuillez modifier vos filtres",
+                nights_label: "nuits",
+                per_person: "par personne"
+            },
+            es: {
+                address: "Kiev, calle Khreshchatyk, 15",
+                tagline: "Agencia de Viajes",
+                nav_home: "Inicio",
+                nav_destinations: "Países",
+                nav_tours: "Viajes",
+                nav_custom: "A Medida",
+                nav_about: "Nosotros",
+                nav_contact: "Contacto",
+                btn_book_now: "Reservar",
+                saved_tours: "Guardados",
+                hero_badge: "Descubre el mundo con nosotros",
+                hero_title: "Viajes inolvidables al mejor precio",
+                hero_subtitle: "Hoteles seleccionados, precios transparentes en UAH y USD.",
+                filter_search: "Buscar destino",
+                filter_category: "Tipo de viaje",
+                filter_max_price: "Presupuesto Máx",
+                cat_all: "Todos",
+                cat_beach: "Playa y Sol",
+                cat_sightseeing: "Cultura y Ciudad",
+                cat_ski: "Esquí",
+                cat_exotic: "Exótico e Islas",
+                price_any: "Cualquiera",
+                price_up_1000: "Hasta $1.000",
+                price_up_2000: "Hasta $2.000",
+                price_up_3000: "Hasta $3.000",
+                btn_find: "Buscar",
+                feat_1_title: "100% Seguro",
+                feat_1_desc: "Protección financiera en cada viaje",
+                feat_2_title: "Doble Moneda",
+                feat_2_desc: "Precios en UAH (₴) y USD ($)",
+                feat_3_title: "Soporte 24/7",
+                feat_3_desc: "Agentes siempre disponibles",
+                feat_4_title: "Mejores Hoteles",
+                feat_4_desc: "Solo alojamientos verificados",
+                dest_subtitle: "Destinos Populares",
+                dest_title: "Países Recomendados",
+                tours_subtitle: "Ofertas Destacadas",
+                tours_title: "Paquetes de Viaje",
+                custom_subtitle: "A Medida",
+                custom_title: "Crea tu viaje ideal",
+                custom_desc: "Calcula el precio estimado de tu viaje al instante",
+                calc_country: "Destino",
+                calc_nights: "Noches",
+                calc_guests: "Huéspedes",
+                calc_hotel: "Categoría Hotel",
+                calc_board: "Régimen",
+                calc_transfer: "Vuelo y Traslado",
+                calc_estimated: "Precio Estimado:",
+                calc_btn_send: "Enviar solicitud",
+                about_subtitle: "Sobre Nosotros",
+                about_title: "Tu socio de confianza para vacaciones",
+                about_text_1: "Creamos experiencias únicas e inolvidables en todo el mundo.",
+                stat_years: "Años de Experiencia",
+                stat_tourists: "Clientes Felices",
+                rating_label: "Valoración media de clientes",
+                contact_subtitle: "Contacto",
+                contact_title: "¿Listo para viajar?",
+                contact_desc: "Visítanos o ponte en contacto con nosotros.",
+                contact_addr_label: "Dirección",
+                contact_phone_label: "Teléfonos",
+                contact_email_label: "Correo",
+                form_name: "Nombre",
+                form_phone: "Teléfono",
+                form_email: "Correo electrónico",
+                form_message: "Mensaje",
+                form_btn_send: "Enviar mensaje",
+                footer_desc: "Tu agencia de viajes desde 2012.",
+                footer_col_1: "Navegación",
+                footer_col_2: "Destinos",
+                footer_col_3: "Redes Sociales",
+                all_rights_reserved: "Todos los derechos reservados.",
+                btn_details: "Ver Detalles",
+                btn_close: "Cerrar",
+                btn_reset: "Restablecer",
+                no_results_title: "No se encontraron viajes",
+                no_results_desc: "Prueba a cambiar los filtros",
+                nights_label: "noches",
+                per_person: "por persona"
+            },
+            pl: {
+                address: "Kijów, ul. Chreszczatyk 15",
+                tagline: "Biuro Podróży",
+                nav_home: "Strona Główna",
+                nav_destinations: "Kraje",
+                nav_tours: "Wycieczki",
+                nav_custom: "Na Zamówienie",
+                nav_about: "O Nas",
+                nav_contact: "Kontakt",
+                btn_book_now: "Wybierz wycieczkę",
+                saved_tours: "Zapisane",
+                hero_badge: "Odkrywaj świat z nami",
+                hero_title: "Niezapomniane podróże w najlepszych cenach",
+                hero_subtitle: "Sprawdzone hotele, przejrzyste ceny w UAH oraz USD.",
+                filter_search: "Szukaj kierunku",
+                filter_category: "Typ wycieczki",
+                filter_max_price: "Maks. Budżet",
+                cat_all: "Wszystkie",
+                cat_beach: "Plaża i Relaks",
+                cat_sightseeing: "Zwiedzanie",
+                cat_ski: "Narty i Góry",
+                cat_exotic: "Egzotyka i Wyspy",
+                price_any: "Dowolny",
+                price_up_1000: "Do $1 000",
+                price_up_2000: "Do $2 000",
+                price_up_3000: "Do $3 000",
+                btn_find: "Szukaj",
+                feat_1_title: "100% Ubezpieczenia",
+                feat_1_desc: "Pełne bezpieczeństwo każdej podróży",
+                feat_2_title: "Podwójne ceny",
+                feat_2_desc: "Wygodne przeliczanie w UAH i USD",
+                feat_3_title: "Wsparcie 24/7",
+                feat_3_desc: "Osobisty doradca do dyspozycji",
+                feat_4_title: "Najlepsze hotele",
+                feat_4_desc: "Tylko zweryfikowane obiekty",
+                dest_subtitle: "Popularne Kierunki",
+                dest_title: "Kraje, które warto odwiedzić",
+                tours_subtitle: "Aktualne Oferty",
+                tours_title: "Polecane i Gorące Oferty",
+                custom_subtitle: "Wycena Indywidualna",
+                custom_title: "Stwórz swoją idealną podróż",
+                custom_desc: "Oblicz przewidywany koszt wycieczki online",
+                calc_country: "Kraj docelowy",
+                calc_nights: "Liczba nocy",
+                calc_guests: "Liczba gości",
+                calc_hotel: "Kategoria hotelu",
+                calc_board: "Wyżywienie",
+                calc_transfer: "Lot i Transfer",
+                calc_estimated: "Szacowany koszt:",
+                calc_btn_send: "Wyślij zapytanie",
+                about_subtitle: "O Wanderlust",
+                about_title: "Twój zaufany partner w podróży",
+                about_text_1: "Tworzymy wyjątkowe wycieczki dostosowane do Twoich marzeń.",
+                stat_years: "Lat doświadczenia",
+                stat_tourists: "Zadowolonych klientów",
+                rating_label: "Średnia ocena klientów",
+                contact_subtitle: "Kontakt",
+                contact_title: "Gotowy na przygodę?",
+                contact_desc: "Odwiedź nasze biuro lub napisz do nas.",
+                contact_addr_label: "Adres biura",
+                contact_phone_label: "Telefony",
+                contact_email_label: "E-mail",
+                form_name: "Imię",
+                form_phone: "Numer telefonu",
+                form_email: "Adres e-mail",
+                form_message: "Wiadomość",
+                form_btn_send: "Wyślij wiadomość",
+                footer_desc: "Twoje biuro podróży od 2012 roku.",
+                footer_col_1: "Nawigacja",
+                footer_col_2: "Kierunki",
+                footer_col_3: "Social Media",
+                all_rights_reserved: "Wszelkie prawa zastrzeżone.",
+                btn_details: "Zobacz Szczegóły",
+                btn_close: "Zamknij",
+                btn_reset: "Resetuj filtry",
+                no_results_title: "Brak wyników wyszukiwania",
+                no_results_desc: "Spróbuj zmienić parametry filtrów",
+                nights_label: "nocy",
+                per_person: "za osobę"
+            }
+        };
+
+        function setCurrency(curr) {
+            currentCurrency = curr;
+            const btnUah = document.getElementById('btn-curr-uah');
+            const btnUsd = document.getElementById('btn-curr-usd');
+
+            if (curr === 'UAH') {
+                btnUah.className = "px-2 py-0.5 rounded-md transition-colors bg-brand-600 text-white";
+                btnUsd.className = "px-2 py-0.5 rounded-md transition-colors text-slate-400 hover:text-white";
+            } else {
+                btnUsd.className = "px-2 py-0.5 rounded-md transition-colors bg-brand-600 text-white";
+                btnUah.className = "px-2 py-0.5 rounded-md transition-colors text-slate-400 hover:text-white";
+            }
+
+            // Re-render tours & calculator estimate
+            renderTours(toursData);
+            calculateEstimatedPrice();
+            showToast(`Валюту змінено на ${curr}`);
+        }
+
+        function formatPrice(usdAmount) {
+            const uahAmount = Math.round(usdAmount * USD_TO_UAH);
+            const formattedUah = uahAmount.toLocaleString('uk-UA') + ' ₴';
+            const formattedUsd = '$' + usdAmount.toLocaleString('en-US');
+
+            if (currentCurrency === 'UAH') {
+                return `<span class="text-xl font-extrabold text-slate-900">${formattedUah}</span> <span class="text-xs text-slate-500 font-semibold">(${formattedUsd})</span>`;
+            } else {
+                return `<span class="text-xl font-extrabold text-slate-900">${formattedUsd}</span> <span class="text-xs text-slate-500 font-semibold">(~${formattedUah})</span>`;
+            }
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang] || translations.uk;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    el.textContent = t[key];
+                }
+            });
+
+            // Re-render components that depend on current language
+            renderCountryCards();
+            renderTours(toursData);
+            showToast(`Мову змінено на ${getLangName(lang)}`);
+        }
+
+        function getLangName(lang) {
+            const names = { uk: 'Українська', en: 'English', de: 'Deutsch', fr: 'Français', es: 'Español', pl: 'Polski' };
+            return names[lang] || lang;
+        }
+
+        function renderCountryCards() {
+            const container = document.getElementById('country-grid');
+            if (!container) return;
+
+            container.innerHTML = countriesData.map(c => `
+                <div onclick="filterByCountry('${c.name.uk}')" class="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer h-64 border border-slate-200/60 card-hover">
+                    <img src="${c.image}" alt="${c.name[currentLang] || c.name.uk}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Travel'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-brand-500/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-white inline-block mb-2">${c.badge}</span>
+                        <h3 class="text-xl font-extrabold leading-tight">${c.name[currentLang] || c.name.uk}</h3>
+                        <p class="text-xs text-slate-300 mt-1">${c.toursCount} доступних турів</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        let activeCategoryFilter = 'all';
+
+        function renderTours(tours) {
+            const container = document.getElementById('tours-grid');
+            const noResults = document.getElementById('no-results');
+            if (!container) return;
+
+            if (tours.length === 0) {
+                container.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            const t = translations[currentLang] || translations.uk;
+
+            container.innerHTML = tours.map(tour => {
+                const isFav = savedFavorites.includes(tour.id);
+                const titleText = tour.title[currentLang] || tour.title.uk;
+                const descText = tour.description[currentLang] || tour.description.uk;
+
+                return `
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm card-hover flex flex-col justify-between">
+                    <div>
+                        <!-- Card Image Header -->
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="${tour.image}" alt="${titleText}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=Tour+Image'">
+                            <div class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/20">
+                                <i class="fa-solid fa-location-dot text-brand-500 mr-1"></i> ${tour.country}
+                            </div>
+                            <button onclick="toggleFavorite(${tour.id}, event)" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-700 flex items-center justify-center transition-all shadow-md">
+                                <i class="${isFav ? 'fa-solid text-rose-500' : 'fa-regular'} fa-heart text-base"></i>
+                            </button>
+                            <div class="absolute bottom-3 right-3 bg-amber-400 text-slate-950 text-xs font-extrabold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+                                <i class="fa-solid fa-star"></i> ${tour.rating}
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 text-slate-400 text-xs font-semibold mb-2">
+                                <span><i class="fa-regular fa-clock mr-1"></i> ${tour.durationNights} ${t.nights_label}</span>
+                                <span>•</span>
+                                <span>${'★'.repeat(tour.stars)}</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2 line-clamp-1">${titleText}</h3>
+                            <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-4">${descText}</p>
+
+                            <!-- Included Highlights -->
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                ${tour.included.map(inc => `<span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-md">${inc}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer / Price & Actions -->
+                    <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase block">${t.per_person}</span>
+                            ${formatPrice(tour.priceUSD)}
+                        </div>
+                        <button onclick="openTourModal(${tour.id})" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                            ${t.btn_details}
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function filterTours() {
+            const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+            const categoryVal = document.getElementById('category-filter').value;
+            const maxPriceVal = document.getElementById('price-filter').value;
+
+            const filtered = toursData.filter(tour => {
+                const tourTitle = (tour.title[currentLang] || tour.title.uk).toLowerCase();
+                const tourCountry = tour.country.toLowerCase();
+                
+                const matchesSearch = tourTitle.includes(searchQuery) || tourCountry.includes(searchQuery);
+                const matchesCategory = (categoryVal === 'all' || activeCategoryFilter === 'all') 
+                    ? (categoryVal === 'all' ? true : tour.category === categoryVal) 
+                    : tour.category === activeCategoryFilter;
+                
+                let matchesPrice = true;
+                if (maxPriceVal !== 'all') {
+                    matchesPrice = tour.priceUSD <= parseInt(maxPriceVal);
+                }
+
+                return matchesSearch && matchesCategory && matchesPrice;
+            });
+
+            renderTours(filtered);
+        }
+
+        function setCategoryFilter(cat, btn) {
+            activeCategoryFilter = cat;
+            document.querySelectorAll('.category-pill').forEach(b => {
+                b.className = "category-pill bg-slate-100 text-slate-600 hover:bg-slate-200 px-4 py-2 rounded-xl text-xs font-semibold transition-all";
+            });
+            btn.className = "category-pill active bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-semibold transition-all";
+            
+            document.getElementById('category-filter').value = cat;
+            filterTours();
+        }
+
+        function filterByCountry(countryName) {
+            document.getElementById('search-input').value = countryName;
+            filterTours();
+            const toursElem = document.getElementById('tours');
+            if(toursElem) toursElem.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('category-filter').value = 'all';
+            document.getElementById('price-filter').value = 'all';
+            activeCategoryFilter = 'all';
+            renderTours(toursData);
+        }
+
+        function openTourModal(id) {
+            const tour = toursData.find(t => t.id === id);
+            if (!tour) return;
+
+            const t = translations[currentLang] || translations.uk;
+            const titleText = tour.title[currentLang] || tour.title.uk;
+            const descText = tour.description[currentLang] || tour.description.uk;
+
+            const uahPrice = Math.round(tour.priceUSD * USD_TO_UAH).toLocaleString('uk-UA') + ' ₴';
+            const usdPrice = '$' + tour.priceUSD.toLocaleString('en-US');
+
+            const content = `
+                <div class="relative h-64 sm:h-80 overflow-hidden rounded-t-3xl">
+                    <img src="${tour.image}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6 text-white">
+                        <span class="bg-brand-500 text-xs font-bold px-3 py-1 rounded-full">${tour.country}</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">${titleText}</h2>
+                    </div>
+                </div>
+                <div class="p-6 sm:p-8 space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <div>
+                            <span class="text-xs text-slate-400 font-bold uppercase block">Вартість туру:</span>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-2xl font-extrabold text-slate-900">${currentCurrency === 'UAH' ? uahPrice : usdPrice}</span>
+                                <span class="text-sm font-semibold text-slate-500">(${currentCurrency === 'UAH' ? usdPrice : uahPrice})</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400 font-bold uppercase block">Тривалість:</span>
+                            <span class="text-base font-bold text-slate-800">${tour.durationNights} ${t.nights_label}</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-2">Про дану поїздку:</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">${descText}</p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-2">Що включено у вартість:</h4>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Проживання в 4-5★ готелі</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Авіапереліт в обидва боки</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Трансфер аеропорт - готель</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Медичне страхування</li>
+                        </ul>
+                    </div>
+
+                    <form onsubmit="handleBookingSubmit(event, '${titleText}')" class="space-y-3 pt-4 border-t border-slate-100">
+                        <h4 class="font-bold text-slate-900 text-sm">Швидке бронювання:</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <input type="text" required placeholder="Ваше ім'я" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-medium outline-none focus:border-slate-800">
+                            <input type="tel" required placeholder="Телефон" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-medium outline-none focus:border-slate-800">
+                        </div>
+                        <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-xs transition-colors">
+                            Забронювати за ${currentCurrency === 'UAH' ? uahPrice : usdPrice}
+                        </button>
+                    </form>
+                </div>
+            `;
+
+            document.getElementById('modal-content').innerHTML = content;
+            document.getElementById('tour-modal').classList.remove('hidden');
+        }
+
+        function closeTourModal() {
+            document.getElementById('tour-modal').classList.add('hidden');
+        }
+
+        function toggleFavorite(id, event) {
+            if (event) event.stopPropagation();
+            
+            const index = savedFavorites.indexOf(id);
+            if (index > -1) {
+                savedFavorites.splice(index, 1);
+                showToast("Видалено з улюблених");
+            } else {
+                savedFavorites.push(id);
+                showToast("Додано в улюблені!");
+            }
+
+            updateFavBadge();
+            renderTours(toursData);
+        }
+
+        function updateFavBadge() {
+            const count = savedFavorites.length;
+            const badge = document.getElementById('fav-count');
+            if (count > 0) {
+                badge.textContent = count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function toggleFavoritesModal() {
+            const modal = document.getElementById('fav-modal');
+            const favList = document.getElementById('fav-list');
+
+            if (savedFavorites.length === 0) {
+                favList.innerHTML = `<p class="text-center text-slate-400 text-xs py-8">Ваш список збережених турів порожній</p>`;
+            } else {
+                const tours = toursData.filter(t => savedFavorites.includes(t.id));
+                favList.innerHTML = tours.map(tour => `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                        <div class="flex items-center gap-3">
+                            <img src="${tour.image}" class="w-12 h-12 rounded-xl object-cover">
+                            <div>
+                                <h5 class="text-xs font-bold text-slate-800 line-clamp-1">${tour.title[currentLang] || tour.title.uk}</h5>
+                                <span class="text-xs font-extrabold text-slate-900">$${tour.priceUSD} (~${Math.round(tour.priceUSD * USD_TO_UAH)} ₴)</span>
+                            </div>
+                        </div>
+                        <button onclick="toggleFavorite(${tour.id}); toggleFavoritesModal();" class="text-rose-500 hover:text-rose-700 text-xs font-bold p-2">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            modal.classList.toggle('hidden');
+        }
+
+        function calculateEstimatedPrice() {
+            const country = document.getElementById('calc-country').value;
+            const nights = parseInt(document.getElementById('calc-nights').value) || 7;
+            const guests = parseInt(document.getElementById('calc-guests').value) || 2;
+            const stars = parseInt(document.getElementById('calc-stars').value) || 4;
+            const board = document.getElementById('calc-board').value;
+            const transfer = document.getElementById('calc-transfer').value;
+
+            // Base night rates per country in USD
+            const baseNightRates = {
+                italy: 110,
+                egypt: 65,
+                greece: 120,
+                japan: 180,
+                bali: 120,
+                uae: 140,
+                france: 150
+            };
+
+            let base = (baseNightRates[country] || 100) * nights * guests;
+            
+            // Star multiplier
+            if (stars === 4) base *= 1.3;
+            if (stars === 5) base *= 1.8;
+
+            // Board type
+            if (board === 'hb') base += 25 * nights * guests;
+            if (board === 'ai') base += 50 * nights * guests;
+
+            // Transfer & Flights
+            if (transfer === 'yes') base += 300 * guests;
+
+            const finalUSD = Math.round(base);
+            const finalUAH = Math.round(finalUSD * USD_TO_UAH);
+
+            document.getElementById('calc-price-usd').textContent = `$${finalUSD.toLocaleString('en-US')}`;
+            document.getElementById('calc-price-uah').textContent = `(~${finalUAH.toLocaleString('uk-UA')} ₴)`;
+        }
+
+        function handleCustomTourSubmit(e) {
+            e.preventDefault();
+            showToast("Запит на індивідуальний тур успішно надіслано!");
+        }
+
+        function handleBookingSubmit(e, tourTitle) {
+            e.preventDefault();
+            closeTourModal();
+            showToast(`Дякуємо! Менеджер зателефонує вам щодо туру "${tourTitle}"`);
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            e.target.reset();
+            showToast("Дякуємо за ваше повідомлення! Ми відповімо найближчим часом.");
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toast-msg');
+            msgSpan.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3500);
+        }
+
+        window.onload = function() {
+            renderCountryCards();
+            renderTours(toursData);
+            calculateEstimatedPrice();
+        };
+    </script>
+</body>
+</html>
